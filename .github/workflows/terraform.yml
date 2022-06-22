@@ -101,7 +101,7 @@ jobs:
           ```
           ${{ steps.apply.outputs.stderr }}
           ```       
-    - name: commit the new Chart.yml
+    - name: commit the terraform state
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Automated Change
