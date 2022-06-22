@@ -31,18 +31,18 @@ jobs:
       id: plan
       continue-on-error: true
       run: |
-        terraform plan -input=false -no-color -out=tfplan         
+        terraform plan > tfplan         
 
-    - name: Reformat Plan
-      if: steps.plan.outcome == 'success'
-      run: |
-        echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
-        | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt          
+#     - name: Reformat Plan
+#       if: steps.plan.outcome == 'success'
+#       run: |
+#         echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
+#         | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt          
 
     - name: Put Plan in Env Var
       if: steps.plan.outcome == 'success'
       run: |
-        PLAN=$(cat plan.txt)
+        PLAN=$(cat tfplan)
         echo "PLAN<<EOF" >> $GITHUB_ENV
         echo "$PLAN" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
