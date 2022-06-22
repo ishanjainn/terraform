@@ -50,8 +50,8 @@ jobs:
       run: |
         terraform apply -auto-approve  
          
-    - name: commit the terraform state
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Automated Change
-        file_pattern: terraform.tfstate
+#     - name: commit the terraform state
+#       uses: stefanzweifel/git-auto-commit-action@v4
+#       with:
+#         commit_message: Automated Change
+#         file_pattern: terraform.tfstate
