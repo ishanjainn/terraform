@@ -5,10 +5,11 @@ terraform {
       version = "1.24.0"
     }
   }
-  backend "s3" {
-    bucket = "terraform-ishan"
-    region = "ap-south-1"
-  }
+#   backend "s3" {
+#     bucket = "terraform-ishan"
+#     key    = "terraform.tfstate"
+#     region = "ap-south-1"
+#   }
 }
 
 # Declaring the first provider to be only used for creating the cloud-stack
@@ -21,8 +22,8 @@ provider "grafana" {
 resource "grafana_cloud_stack" "ishanterraformde" {
   provider = grafana.first
 
-  name        = "ishanloterraformdem"
-  slug        = "ishanloterraformdem"
+  name        = "ishanawsterraform"
+  slug        = "ishanawsterraform"
   region_slug = "us" # Example “us”,”eu” etc
 }
 
