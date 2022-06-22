@@ -1,6 +1,6 @@
 # Using a JSON file
 resource "grafana_dashboard" "influxdb" {
-  provider  = grafana.second
+  provider = grafana.second
 
   for_each    = fileset("${path.module}/dashboards", "*.json")
   config_json = file("${path.module}/dashboards/${each.key}")
