@@ -2,6 +2,6 @@
 resource "grafana_dashboard" "influxdb" {
   provider = grafana.second
 
-  config_json = file("sample-dashboard.json")
+  config_json = file("dashboards/sample-dashboard.json")
   folder      = grafana_folder.Demos.id
 }
