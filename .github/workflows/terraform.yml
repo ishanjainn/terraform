@@ -44,7 +44,7 @@ jobs:
           ${{ steps.plan.outputs.stdout }}
           ```
     - name: Apply Terraform
-      if: github.ref == 'refs/heads/"main"'
+      if: github.ref == 'refs/heads/main'
       id: apply
       continue-on-error: true
       run: |
