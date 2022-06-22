@@ -14,11 +14,11 @@ provider "grafana" {
   cloud_api_key = "eyJrIjoiMGEwYTI3OWM1MmY5MzE5OWQxNzkwYTkyOTNjZWJjMDc1N2Y3MjJmNCIsIm4iOiJJc2hhbiIsImlkIjo2NTI5OTJ9"
 }
 
-resource "grafana_cloud_stack" "ishanterraformdemo" {
+resource "grafana_cloud_stack" "ishanterraformdem" {
   provider = grafana.first
 
-  name        = "ishanterraformdemo"
-  slug        = "ishanterraformdemo"
+  name        = "ishanterraformdem"
+  slug        = "ishanterraformdem"
   region_slug = "us" # Example “us”,”eu” etc
 }
 
@@ -26,7 +26,7 @@ resource "grafana_cloud_stack" "ishanterraformdemo" {
 resource "grafana_api_key" "terraform" {
   provider = grafana.first
 
-  cloud_stack_slug = grafana_cloud_stack.ishanterraformdemo.slug
+  cloud_stack_slug = grafana_cloud_stack.ishanterraformdem.slug
   name             = "terraform"
   role             = "Admin"
 }
@@ -35,6 +35,6 @@ resource "grafana_api_key" "terraform" {
 provider "grafana" {
   alias = "second"
 
-  url  = grafana_cloud_stack.ishanterraformdemo.url
+  url  = grafana_cloud_stack.ishanterraformdem.url
   auth = grafana_api_key.terraform.key
 }
