@@ -1,9 +1,9 @@
 name: Terraform
 
 on:
-  push:
-    branches:
-    - "main"
+#   push:
+#     branches:
+#     - "main"
   pull_request:
 
 jobs:
@@ -49,6 +49,22 @@ jobs:
       continue-on-error: true
       run: |
         terraform apply -auto-approve  
+        
+    - name: Post Apply Failure
+      if: steps.apply.outcome == 'failure'
+      uses: mshick/add-pr-comment@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]'
+        message: |
+          Applying:
+          
+          ```diff
+          ${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' | sed -E 's/^([[:space:]]+)([-+])/\2\1/g
+          ```
+          ```
+          ${{ steps.apply.outputs.stdout }}
+          ```    
          
     - name: commit the terraform state
       uses: stefanzweifel/git-auto-commit-action@v4
