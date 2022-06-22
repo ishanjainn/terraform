@@ -49,32 +49,7 @@ jobs:
       continue-on-error: true
       run: |
         terraform apply -auto-approve  
-    
-    - name: Post Apply to GitHub PR
-      if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        message: |
-          Applied:
-
-          ```
-          ${{ steps.apply.outputs.stdout }}
-          ```                 
-
-    - name: Post Apply Failure
-      if: steps.apply.outcome == 'failure'
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        message: |
-          Apply failed for :
-
-          ```
-          ${{ steps.apply.outputs.stdout }}
-          ```       
+         
     - name: commit the terraform state
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
