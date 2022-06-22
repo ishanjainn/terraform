@@ -7,6 +7,7 @@ terraform {
   }
 #   backend "s3" {
 #     bucket = "terraform-ishan"
+#     key    = "terraform.tfstate" 
 #     region = "ap-south-1"
 #   }
 }
@@ -21,8 +22,8 @@ provider "grafana" {
 resource "grafana_cloud_stack" "ishanterraformde" {
   provider = grafana.first
 
-  name        = "ishanloterraformdem"
-  slug        = "ishanloterraformdem"
+  name        = "ishanawsterraformdem"
+  slug        = "ishanawsterraformdem"
   region_slug = "us" # Example “us”,”eu” etc
 }
 
