@@ -106,5 +106,9 @@ jobs:
           ```
           ${{ steps.apply.outputs.stderr }}
           ```       
-    - name: test
-      run: ls
+    - name: commit the new Chart.yml
+      if: steps.changed-files-specific.outputs.any_modified == 'true'
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Automated Change
+        file_pattern:  *.tfstate
