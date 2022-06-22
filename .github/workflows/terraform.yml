@@ -30,48 +30,19 @@ jobs:
     - name: Plan Terraform
       id: plan
       continue-on-error: true
-      run: terraform plan -input=false -no-color -out=tfplan    
-    
-#     - name: Reformat Plan
-#       if: steps.plan.outcome == 'success'
-#       run: |
-#         echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
-#         | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt          
-    
-#     - name: Put Plan in Env Var
-#       if: steps.plan.outcome == 'success'
-#       run: |
-#         PLAN=$(cat tfplan)
-#         echo "PLAN<<EOF" >> $GITHUB_ENV
-#         echo "$PLAN" >> $GITHUB_ENV
-#         echo "EOF" >> $GITHUB_ENV
+      run: terraform plan -input=false -no-color    
 
     - name: Post Plan to GitHub PR
-      if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
       uses: mshick/add-pr-comment@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         repo-token-user-login: 'github-actions[bot]'
         message: |
           Applying:
-
-          ```diff
-          echo tfplan
+          
           ```
-    
-    - name: Post Plan Failure
-      if: steps.plan.outcome == 'failure'
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        message: |
-          Plan failed for :
-
+          ${{ steps.plan.outputs.stdout }}
           ```
-          echo tfplan
-          ``` 
-    
     - name: Apply Terraform
       if: steps.plan.outcome == 'success'
       id: apply
@@ -89,7 +60,7 @@ jobs:
           Applied:
 
           ```
-          ${{ steps.apply.outputs.stderr }}
+          ${{ steps.apply.outputs.stdout }}
           ```                 
 
     - name: Post Apply Failure
