@@ -73,7 +73,7 @@ jobs:
           Apply failed for :
 
           ```
-          ${{ steps.apply.outputs.stderr }}
+          ${{ steps.apply.outputs.stdout }}
           ```       
     - name: commit the terraform state
       uses: stefanzweifel/git-auto-commit-action@v4
