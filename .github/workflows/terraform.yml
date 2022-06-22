@@ -60,18 +60,18 @@ jobs:
           echo tfplan
           ```
     
-#     - name: Post Plan Failure
-#       if: steps.plan.outcome == 'failure'
-#       uses: mshick/add-pr-comment@v1
-#       with:
-#         repo-token: ${{ secrets.GITHUB_TOKEN }}
-#         repo-token-user-login: 'github-actions[bot]'
-#         message: |
-#           Plan failed for :
+    - name: Post Plan Failure
+      if: steps.plan.outcome == 'failure'
+      uses: mshick/add-pr-comment@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]'
+        message: |
+          Plan failed for :
 
-#           ```
-#           ${{ steps.plan.outputs.stderr }}
-#           ``` 
+          ```
+          echo tfplan
+          ``` 
     
     - name: Apply Terraform
       id: apply
@@ -89,7 +89,7 @@ jobs:
           Applied:
 
           ```
-          echo tfapply
+          ${{ steps.apply.outputs.stderr }}
           ```                 
 
     - name: Post Apply Failure
