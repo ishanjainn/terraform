@@ -5,11 +5,6 @@ terraform {
       version = "1.24.0"
     }
   }
-#   backend "s3" {
-#     bucket = "terraform-ishan"
-#     key    = "terraform.tfstate" 
-#     region = "ap-south-1"
-#   }
 }
 
 # Declaring the first provider to be only used for creating the cloud-stack
