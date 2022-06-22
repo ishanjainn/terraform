@@ -27,51 +27,51 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -check
 
-    - name: Plan Terraform
-      id: plan
-      continue-on-error: true
-      run: |
-        terraform plan > tfplan        
+#     - name: Plan Terraform
+#       id: plan
+#       continue-on-error: true
+#       run: |
+#         terraform plan > tfplan        
     
-#     - name: Reformat Plan
+# #     - name: Reformat Plan
+# #       if: steps.plan.outcome == 'success'
+# #       run: |
+# #         echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
+# #         | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt          
+    
+#     - name: Put Plan in Env Var
 #       if: steps.plan.outcome == 'success'
 #       run: |
-#         echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
-#         | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt          
+#         PLAN=$(cat tfplan)
+#         echo "PLAN<<EOF" >> $GITHUB_ENV
+#         echo "$PLAN" >> $GITHUB_ENV
+#         echo "EOF" >> $GITHUB_ENV
+
+#     - name: Post Plan to GitHub PR
+#       if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
+#       uses: mshick/add-pr-comment@v1
+#       with:
+#         repo-token: ${{ secrets.GITHUB_TOKEN }}
+#         repo-token-user-login: 'github-actions[bot]'
+#         message: |
+#           Applying:
+
+#           ```diff
+#           ${{ env.PLAN }}
+#           ```
     
-    - name: Put Plan in Env Var
-      if: steps.plan.outcome == 'success'
-      run: |
-        PLAN=$(cat tfplan)
-        echo "PLAN<<EOF" >> $GITHUB_ENV
-        echo "$PLAN" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+#     - name: Post Plan Failure
+#       if: steps.plan.outcome == 'failure'
+#       uses: mshick/add-pr-comment@v1
+#       with:
+#         repo-token: ${{ secrets.GITHUB_TOKEN }}
+#         repo-token-user-login: 'github-actions[bot]'
+#         message: |
+#           Plan failed for :
 
-    - name: Post Plan to GitHub PR
-      if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        message: |
-          Applying:
-
-          ```diff
-          ${{ env.PLAN }}
-          ```
-    
-    - name: Post Plan Failure
-      if: steps.plan.outcome == 'failure'
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        message: |
-          Plan failed for :
-
-          ```
-          ${{ steps.plan.outputs.stderr }}
-          ``` 
+#           ```
+#           ${{ steps.plan.outputs.stderr }}
+#           ``` 
     
     - name: Apply Terraform
       if: steps.plan.outcome == 'success'
