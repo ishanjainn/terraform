@@ -5,9 +5,9 @@ resource "grafana_folder" "Demos" {
   title = "Demos"
 }
 
-resource "grafana_folder" "Demos-2" {
+resource "grafana_folder" "Demos-3" {
   provider = grafana.second
 
-  uid   = "123456"
-  title = "Demos-2"
+  uid   = "123457"
+  title = "Demos-3"
 }
