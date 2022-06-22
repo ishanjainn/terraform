@@ -17,8 +17,8 @@ provider "grafana" {
 resource "grafana_cloud_stack" "ishanterraformde" {
   provider = grafana.first
 
-  name        = "ishanjterraform"
-  slug        = "ishanjterraform"
+  name        = "ishanjterraformd"
+  slug        = "ishanjterraformd"
   region_slug = "us" # Example “us”,”eu” etc
 }
 
