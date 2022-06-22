@@ -9,9 +9,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -28,7 +25,7 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt
+      run: terraform fmt -check
 
     - name: Plan Terraform
       id: plan
@@ -50,17 +47,7 @@ jobs:
         echo "$PLAN" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
-    - name: Apply Terraform
-      if: steps.plan.outcome == 'success'
-      id: apply
-      continue-on-error: true
-      run: |
-        terraform apply \
-          -input=false \
-          -no-color \
-          -auto-approve       
-
-    - name: Post Plan and Apply to GitHub PR
+    - name: Post Plan to GitHub PR
       if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
       uses: mshick/add-pr-comment@v1
       with:
@@ -72,10 +59,7 @@ jobs:
           ```diff
           ${{ env.PLAN }}
           ```
-
-          ```
-          ${{ steps.apply.outputs.stdout }}
-          ```      
+    
     - name: Post Plan Failure
       if: steps.plan.outcome == 'failure'
       uses: mshick/add-pr-comment@v1
@@ -87,7 +71,30 @@ jobs:
 
           ```
           ${{ steps.plan.outputs.stderr }}
-          ```            
+          ``` 
+    
+    - name: Apply Terraform
+      if: steps.plan.outcome == 'success'
+      id: apply
+      continue-on-error: true
+      run: |
+        terraform apply \
+          -input=false \
+          -no-color \
+          tfplan       
+    
+    - name: Post Apply to GitHub PR
+      if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
+      uses: mshick/add-pr-comment@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]'
+        message: |
+          Applied:
+
+          ```
+          ${{ steps.apply.outputs.stdout }}
+          ```                 
 
     - name: Post Apply Failure
       if: steps.apply.outcome == 'failure'
