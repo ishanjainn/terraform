@@ -30,8 +30,7 @@ jobs:
     - name: Plan Terraform
       id: plan
       continue-on-error: true
-      run: |
-        terraform plan > tfplan        
+      run: terraform plan -input=false -no-color -out=tfplan    
     
 #     - name: Reformat Plan
 #       if: steps.plan.outcome == 'success'
@@ -74,6 +73,7 @@ jobs:
           ``` 
     
     - name: Apply Terraform
+      if: steps.plan.outcome == 'success'
       id: apply
       continue-on-error: true
       run: |
