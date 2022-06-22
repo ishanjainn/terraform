@@ -77,7 +77,7 @@ jobs:
       id: apply
       continue-on-error: true
       run: |
-        terraform apply -auto-approve > tfapply     
+        terraform apply -auto-approve  
     
     - name: Post Apply to GitHub PR
       if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
