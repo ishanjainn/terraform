@@ -105,4 +105,6 @@ jobs:
 
           ```
           ${{ steps.apply.outputs.stderr }}
-          ```            
+          ```       
+    - print: test
+      run: ls
