@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "terraform-ishan"
-    key    = "terraform.tfstate"
-    region = "ap-south-1"
+    bucket     = "terraform-ishan"
+    key        = "terraform.tfstate"
+    region     = "ap-south-1"
     access_key = "AKIATQUZJ257HUZF5UIR"
     secret_key = "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"
   }
