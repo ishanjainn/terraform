@@ -52,7 +52,7 @@ jobs:
 #         echo "EOF" >> $GITHUB_ENV
 
     - name: Apply Terraform
-      if: steps.plan.outcome == 'success'
+#       if: steps.plan.outcome == 'success'
       id: apply
       continue-on-error: true
       run: |
