@@ -51,7 +51,6 @@ jobs:
         terraform apply -auto-approve  
         
     - name: Post Apply Failure
-      if: steps.apply.outcome == 'failure'
       uses: mshick/add-pr-comment@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
