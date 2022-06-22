@@ -9,7 +9,10 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+    
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
