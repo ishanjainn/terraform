@@ -2,12 +2,7 @@
 resource "grafana_dashboard" "influxdb" {
   provider = grafana.second
 
-  config_json = file("dashboards/sample-dashboard.json")
-  folder      = grafana_folder.Demos.id
-}
-resource "grafana_dashboard" "aws" {
-  provider = grafana.second
-
-  config_json = file("dashboards/test-dashboard.json")
+  for_each    = fileset(path.module, "dashboards/*.json")
+  config_json = file("${path.module}/${each.key}")
   folder      = grafana_folder.Demos.id
 }
