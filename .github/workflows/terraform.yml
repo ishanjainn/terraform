@@ -31,8 +31,7 @@ jobs:
       id: plan
       continue-on-error: true
       run: |
-        terraform plan -input=false -no-color -out=tfplan \
-        && terraform show -no-color tfplan          
+        terraform plan -input=false -no-color -out=tfplan        
     
     - name: Reformat Plan
       if: steps.plan.outcome == 'success'
