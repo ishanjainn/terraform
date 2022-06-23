@@ -1,7 +1,7 @@
-resource "grafana_folder" "Elasticsearch" {
+resource "grafana_folder" "ElasticSearch" {
   provider = grafana.second
 
-  title = "Elasticsearch"
+  title = "ElasticSearch"
 }
 
 resource "grafana_folder" "InfluxDB" {
