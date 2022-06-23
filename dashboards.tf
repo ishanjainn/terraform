@@ -1,23 +1,23 @@
-resource "grafana_dashboard" "production" {
+resource "grafana_dashboard" "elasticsearch" {
   provider = grafana.second
 
-  for_each    = fileset("${path.module}/dashboards/production", "*.json")
-  config_json = file("${path.module}/dashboards/production/${each.key}")
-  folder      = grafana_folder.Production.id
+  for_each    = fileset("${path.module}/dashboards/elasticsearch", "*.json")
+  config_json = file("${path.module}/dashboards/elasticsearch/${each.key}")
+  folder      = grafana_folder.Elasticsearch.id
 }
 
-resource "grafana_dashboard" "staging" {
+resource "grafana_dashboard" "influxdb" {
   provider = grafana.second
 
-  for_each    = fileset("${path.module}/dashboards/staging", "*.json")
-  config_json = file("${path.module}/dashboards/staging/${each.key}")
-  folder      = grafana_folder.Staging.id
+  for_each    = fileset("${path.module}/dashboards/influxdb", "*.json")
+  config_json = file("${path.module}/dashboards/influxdb/${each.key}")
+  folder      = grafana_folder.Influxdb.id
 }
 
-resource "grafana_dashboard" "dev" {
+resource "grafana_dashboard" "aws" {
   provider = grafana.second
 
-  for_each    = fileset("${path.module}/dashboards/dev", "*.json")
-  config_json = file("${path.module}/dashboards/dev/${each.key}")
-  folder      = grafana_folder.Dev.id
+  for_each    = fileset("${path.module}/dashboards/aws", "*.json")
+  config_json = file("${path.module}/dashboards/aws/${each.key}")
+  folder      = grafana_folder.Aws.id
 }
