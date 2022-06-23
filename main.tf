@@ -8,6 +8,8 @@ terraform {
 }
 
 provider "grafana" {
-  url  = "https://ishanawsterraformdem.grafana.net/"
-  auth = "eyJrIjoiMG9VS2lzVGRsZVBkRW8xQlB2aDlrZnVycE80WTJNY0MiLCJuIjoieW8iLCJpZCI6MX0="
+  alias = "second" 
+  
+  url   = "https://ishanawsterraformdem.grafana.net/"
+  auth  = "eyJrIjoiMG9VS2lzVGRsZVBkRW8xQlB2aDlrZnVycE80WTJNY0MiLCJuIjoieW8iLCJpZCI6MX0="
 }
