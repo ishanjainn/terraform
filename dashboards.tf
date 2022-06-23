@@ -3,7 +3,7 @@ resource "grafana_dashboard" "elasticsearch" {
 
   for_each    = fileset("${path.module}/dashboards/elasticsearch", "*.json")
   config_json = file("${path.module}/dashboards/elasticsearch/${each.key}")
-  folder      = grafana_folder.Elasticsearch.id
+  folder      = grafana_folder.ElasticSearch.id
 }
 
 resource "grafana_dashboard" "influxdb" {
