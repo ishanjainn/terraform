@@ -11,7 +11,7 @@ resource "grafana_dashboard" "influxdb" {
 
   for_each    = fileset("${path.module}/dashboards/influxdb", "*.json")
   config_json = file("${path.module}/dashboards/influxdb/${each.key}")
-  folder      = grafana_folder.Influxdb.id
+  folder      = grafana_folder.InfluxDB.id
 }
 
 resource "grafana_dashboard" "aws" {
