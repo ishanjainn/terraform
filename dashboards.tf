@@ -19,5 +19,5 @@ resource "grafana_dashboard" "aws" {
 
   for_each    = fileset("${path.module}/dashboards/aws", "*.json")
   config_json = file("${path.module}/dashboards/aws/${each.key}")
-  folder      = grafana_folder.Aws.id
+  folder      = grafana_folder.AWS.id
 }
