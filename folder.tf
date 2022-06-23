@@ -1,17 +1,17 @@
-resource "grafana_folder" "Production" {
+resource "grafana_folder" "Elasticsearch" {
   provider = grafana.second
 
-  title = "Production"
+  title = "Elasticsearch"
 }
 
-resource "grafana_folder" "Staging" {
+resource "grafana_folder" "InfluxDB" {
   provider = grafana.second
 
-  title = "Staging"
+  title = "InfluxDB"
 }
 
-resource "grafana_folder" "Dev" {
+resource "grafana_folder" "AWS" {
   provider = grafana.second
 
-  title = "Dev"
+  title = "AWS"
 }
