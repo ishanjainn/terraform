@@ -1,32 +1,13 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
-  },
+  "id": null,
+  "uid": "airxyz",
+  "title": "New dashboard",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
   "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 128,
-  "links": [],
-  "liveNow": false,
+  "hideControls": false,
+  "graphTooltip": 1,
   "panels": [
     {
       "datasource": {
@@ -113,7 +94,7 @@
         ]
       },
       "gridPos": {
-        "h": 17,
+        "h": 11,
         "w": 24,
         "x": 0,
         "y": 0
@@ -144,21 +125,22 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 36,
-  "style": "dark",
-  "tags": [],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "time_options": [],
+    "refresh_intervals": []
+  },
   "templating": {
     "list": []
   },
-  "time": {
-    "from": "2022-06-21T17:05:46.978Z",
-    "to": "2022-06-21T17:53:35.857Z"
+  "annotations": {
+    "list": []
   },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Production dashboard",
-  "uid": "9uim8cunk",
-  "version": 1,
-  "weekStart": ""
+  "refresh": "5s",
+  "schemaVersion": 17,
+  "version": 0,
+  "links": []
 }
