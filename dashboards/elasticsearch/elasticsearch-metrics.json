@@ -1,164 +1,153 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
-  },
+  "id": null,
+  "uid": "elasticxyz",
+  "title": "ElasticSearch metrics",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
   "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 128,
-  "links": [],
-  "liveNow": false,
+  "hideControls": false,
+  "graphTooltip": 1,
   "panels": [
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "xLNPLcX7z"
-      },
-      "description": "Air sensor sample data from InfluxDB https://docs.influxdata.com/influxdb/cloud/reference/sample-data/#air-sensor-sample-data",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "co TLM0102"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
+      "id": 14,
       "gridPos": {
-        "h": 17,
+        "h": 10,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+      "type": "graph",
+      "title": "CPU",
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "yvKcQK37z"
       },
+      "thresholds": [],
+      "pluginVersion": "9.0.1-b253e87pre",
+      "links": [],
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "aliasColors": {
+        "Max nodes.process.cpu.percent": "#890F02",
+        "nodes.process.cpu.percent": "#890F02"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "editable": true,
+      "error": false,
+      "fill": 5,
+      "fillGradient": 0,
+      "grid": {},
+      "hiddenSeries": false,
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "xLNPLcX7z"
-          },
-          "query": "import \"influxdata/influxdb/sample\"\r\nsample.data(set: \"airSensor\")\r\n\t|> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"airSensors\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"humidity\" or r[\"_field\"] == \"co\")\r\n",
-          "refId": "A"
+          "alias": "{{field}}",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "dsType": "elasticsearch",
+          "metrics": [
+            {
+              "field": "nodes.process.cpu.percent",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "max"
+            }
+          ],
+          "query": "cluster_name:$Cluster",
+          "refId": "A",
+          "timeField": "@timestamp"
         }
       ],
-      "title": "Air Sensors",
-      "type": "timeseries"
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "tooltip": {
+        "msResolution": true,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
-  "refresh": false,
-  "schemaVersion": 36,
-  "style": "dark",
-  "tags": [],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "time_options": [],
+    "refresh_intervals": []
+  },
   "templating": {
     "list": []
   },
-  "time": {
-    "from": "2022-06-21T17:05:46.978Z",
-    "to": "2022-06-21T17:53:35.857Z"
+  "annotations": {
+    "list": []
   },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Stagings",
-  "uid": "9uibklgm8cunk",
-  "version": 1,
-  "weekStart": ""
+  "refresh": "5s",
+  "schemaVersion": 17,
+  "version": 0,
+  "links": []
 }
